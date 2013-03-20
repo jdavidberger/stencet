@@ -1,9 +1,13 @@
-#include <templace/viewModel.h>
+#include <stencet/viewModel.h>
 
-namespace templace {
+namespace stencet {
 
   ViewModel* ViewModel::at(size_t) { assert(false); }
   size_t ViewModel::size() const { return 0; }
+
+  Variant::Variant(){
+    managed = false;
+  }
 
   int Variant::asInt() const {
     switch(type){

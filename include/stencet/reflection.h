@@ -7,7 +7,7 @@
 
 template <typename T> struct MetaClass_{    };
 
-namespace templace {
+namespace stencet {
   struct Member {
     Member(const std::string& _name) : name(_name){}
       std::string name;

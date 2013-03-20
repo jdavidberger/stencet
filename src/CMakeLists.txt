@@ -1,4 +1,4 @@
-add_library(templace 
+add_library(stencet 
 		     template.cc 
 		     viewModel.cc 
 		     viewContext.cc 
@@ -8,9 +8,11 @@ add_library(templace
 		     tags/IncludeTag.cc 
 		     tags/ExtendsTag.cc 
 		     tags/BlockTag.cc 
+		     		      
+		     filters/capfirst.cc
 		     expression.cc
 	)
 
-target_link_libraries(templace dl)
+target_link_libraries(stencet dl)
 add_subdirectory(examples)
 add_subdirectory(test)

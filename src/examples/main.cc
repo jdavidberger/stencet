@@ -1,7 +1,7 @@
-#include <templace/templace>
-using namespace templace;
+#include <stencet/stencet>
+using namespace stencet;
 int main() {
-  Template::AddDirectory("/home/justin/templace/tcs");
+  Template::AddDirectory("/home/justin/stencet/tcs");
 
   Variant vm;
   vm["test"] = 123;

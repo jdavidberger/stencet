@@ -1,5 +1,5 @@
 #include <cppunit/TestCase.h>
-#include <templace/mscanf.h>
+#include <stencet/mscanf.h>
 #include <cppunit/TestRunner.h>
 #include <cppunit/TestResult.h>
 #include <cppunit/TestResultCollector.h>

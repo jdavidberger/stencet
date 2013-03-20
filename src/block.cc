@@ -1,6 +1,6 @@
-#include <templace/templace>
+#include <stencet/stencet>
 #include <string.h>
-namespace templace {
+namespace stencet {
 
   auto RegionFactory::Makers() -> std::map<std::string, Maker >& { 
     static std::map<std::string, Maker > makers;
@@ -37,20 +37,22 @@ namespace templace {
       std::string buffer; 
       m->asString(buffer);
       out << buffer;
+      if(!m->managed)
+	delete m;
     } else 
       std::cerr << "No variable '" << expression << "' defined." << std::endl;
   }
   
 }
 
-#include <templace/blocks/ForRegion.h>
-#include <templace/blocks/IfRegion.h>
-#include <templace/blocks/IncludeRegion.h>
-#include <templace/blocks/ExtendsRegion.h>
-#include <templace/blocks/NamedRegion.h>
+#include <stencet/blocks/ForRegion.h>
+#include <stencet/blocks/IfRegion.h>
+#include <stencet/blocks/IncludeRegion.h>
+#include <stencet/blocks/ExtendsRegion.h>
+#include <stencet/blocks/NamedRegion.h>
 
-static auto ___For = templace::RegionFactory::Register<templace::ForRegion>("for");
-static auto ___If  = templace::RegionFactory::Register<templace::IfRegion>("if");
-static auto ___Include  = templace::RegionFactory::Register<templace::IncludeRegion>("include");
-static auto ___Extends  = templace::RegionFactory::Register<templace::ExtendsRegion>("extends");
-static auto ___Region  = templace::RegionFactory::Register<templace::>("block");
+static auto ___For = stencet::RegionFactory::Register<stencet::ForRegion>("for");
+static auto ___If  = stencet::RegionFactory::Register<stencet::IfRegion>("if");
+static auto ___Include  = stencet::RegionFactory::Register<stencet::IncludeRegion>("include");
+static auto ___Extends  = stencet::RegionFactory::Register<stencet::ExtendsRegion>("extends");
+static auto ___Region  = stencet::RegionFactory::Register<stencet::>("block");

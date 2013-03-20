@@ -1,6 +1,6 @@
-#include <templace/tags/ForTag.h>
+#include <stencet/tags/ForTag.h>
 #include <string.h>
-namespace templace {
+namespace stencet {
   void ForTag::render(std::ostream& out, ViewContext& vm) const {
     ViewModel* loopOver = vm.at(listName);
     assert(loopOver);

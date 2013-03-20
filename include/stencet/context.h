@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
 
-namespace templace {
+namespace stencet {
   
 }

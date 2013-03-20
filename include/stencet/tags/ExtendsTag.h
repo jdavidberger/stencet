@@ -1,7 +1,7 @@
 #pragma once
-#include <templace/templace>
+#include <stencet/stencet>
 
-namespace templace {
+namespace stencet {
 
   struct ExtendsTag : public BodyTag {
     Template* extendThis = 0;

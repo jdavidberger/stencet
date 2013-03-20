@@ -1,6 +1,6 @@
-#include <templace/tags/IfTag.h>
+#include <stencet/tags/IfTag.h>
 #include <string.h>
-namespace templace {
+namespace stencet {
 
   static bool eval(const std::string& expr, ViewContext& vm){
     return vm.at(expr) && vm.at(expr)->asInt() > 0;

@@ -1,21 +1,6 @@
-#include <templace/templace>
+#include <stencet/stencet>
 #include <string.h>
-namespace templace {
-
-  auto TagFactory::Makers() -> std::map<std::string, Maker >& { 
-    static std::map<std::string, Maker > makers;
-    return makers;
-  }
-
-  Tag* TagFactory::Create(std::istream& stream, const std::string& contents){
-    const char* nameEnd = strchr(&contents[0], ' ');
-    std::string name = nameEnd ? std::string(&contents[0], nameEnd) : std::string(&contents[0]);
-    auto maker = Makers().find( name );
-    if(maker == Makers().end()){
-      return 0;
-    }
-    return maker->second(stream, contents);
-  }
+namespace stencet {
 
   void LiteralRegion::render(std::ostream& out, ViewContext& vm) const {
     out << data;
@@ -31,7 +16,7 @@ namespace templace {
   }
 
   void VariableRegion::render(std::ostream& out, ViewContext& vm) const {
-    ViewModel* m = expression->Eval(vm);
+    auto m = expression->Eval(vm);
     
     if(m){
       std::string buffer; 
@@ -43,14 +28,17 @@ namespace templace {
   
 }
 
-#include <templace/tags/ForTag.h>
-#include <templace/tags/IfTag.h>
-#include <templace/tags/IncludeTag.h>
-#include <templace/tags/ExtendsTag.h>
-#include <templace/tags/BlockTag.h>
+#include <stencet/tags/ForTag.h>
+#include <stencet/tags/IfTag.h>
+#include <stencet/tags/IncludeTag.h>
+#include <stencet/tags/ExtendsTag.h>
+#include <stencet/tags/BlockTag.h>
 
-static auto ___For = templace::TagFactory::Register<templace::ForTag>("for");
-static auto ___If  = templace::TagFactory::Register<templace::IfTag>("if");
-static auto ___Include  = templace::TagFactory::Register<templace::IncludeTag>("include");
-static auto ___Extends  = templace::TagFactory::Register<templace::ExtendsTag>("extends");
-static auto ___Region  = templace::TagFactory::Register<templace::BlockTag>("block");
+static auto ___For = stencet::TagFactory::Register<stencet::ForTag>("for");
+static auto ___If  = stencet::TagFactory::Register<stencet::IfTag>("if");
+static auto ___Include  = stencet::TagFactory::Register<stencet::IncludeTag>("include");
+static auto ___Extends  = stencet::TagFactory::Register<stencet::ExtendsTag>("extends");
+static auto ___Region  = stencet::TagFactory::Register<stencet::BlockTag>("block");
+
+#include <stencet/filters/capfirst.h>
+static auto ___capfirst  = stencet::FilterFactory::Register<stencet::CapFirstFilter>("capfirst");

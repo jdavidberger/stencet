@@ -1,6 +1,6 @@
-#include <templace/tags/ExtendsTag.h>
+#include <stencet/tags/ExtendsTag.h>
 #include <string.h>
-namespace templace {
+namespace stencet {
   void ExtendsTag::render(std::ostream& out, ViewContext& vm) const {
     for(auto& pair : sections){
       vm.blocks[pair.first] = &pair.second;

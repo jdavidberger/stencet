@@ -1,9 +1,9 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include <templace/viewModel.h>
+#include <stencet/viewModel.h>
 
-namespace templace {
+namespace stencet {
   ViewModel* ViewContext::at(size_t) {
     assert(false);
   }

@@ -1,11 +1,11 @@
 #pragma once
 
-#include <templace/region.h>
+#include <stencet/region.h>
 #include <vector>
 #include <iostream>
 #include "reflection.h"
 
-namespace templace {
+namespace stencet {
 
   struct Template {
     std::vector<Region*> regions;

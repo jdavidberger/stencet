@@ -3,7 +3,7 @@
 #include <assert.h>
 #include "reflection.h"
 
-namespace templace {
+namespace stencet {
   template<typename T> 
   Variant& Variant::operator=(const T& t){
     VariantT::operator =(t);

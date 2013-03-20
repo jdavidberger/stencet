@@ -1,5 +1,5 @@
-#include <templace/templace>
-using namespace templace;
+#include <stencet/stencet>
+using namespace stencet;
 
 struct Pet {
   std::string name;
@@ -30,10 +30,10 @@ struct MetaClass_<Pet> {
 
 
 int main() {
-  Template::AddDirectory("/home/justin/templace/tcs");
+  Template::AddDirectory("/home/justin/stencet/tcs");
   
   Person person;
-  person.name = "Justin";
+  person.name = "justin";
   person.age = 100;
   person.p.name = "Oliver";
 

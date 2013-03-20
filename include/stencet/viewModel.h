@@ -6,12 +6,13 @@
 #include <stdexcept>
 #include "reflection.h"
 
-namespace templace {
+namespace stencet {
   struct UnsupportedCast : public std::runtime_error {
   UnsupportedCast(const std::string& what) : std::runtime_error(what) {}
   };
 
   struct ViewModel {    
+    bool managed = true;
     virtual void asString(std::string& str) const { throw UnsupportedCast(""); };
     virtual double asDouble() const { return asInt(); }
     virtual bool asBool() const { return asInt() > 0; }
@@ -41,6 +42,7 @@ namespace templace {
     using MapT = std::map<std::string, Variant>;
     using ListT = std::vector<Variant>;
     using VariantT = Variant_<MapT, ListT, std::string, double, int, bool>;
+    Variant();
 
     virtual Variant* at(const std::string& name);
     virtual Variant* at(size_t);

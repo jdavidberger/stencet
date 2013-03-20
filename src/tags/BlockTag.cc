@@ -1,6 +1,6 @@
-#include <templace/tags/BlockTag.h>
+#include <stencet/tags/BlockTag.h>
 #include <string.h>
-namespace templace {
+namespace stencet {
   void BlockTag::render(std::ostream& out, ViewContext& vm) const {
     if(vm.blocks.find(name) == vm.blocks.end())
       defaultTemplate.render(out, vm);

@@ -1,7 +1,7 @@
-#include <templace/expression.h>
-#include <templace/viewModel.h>
+#include <stencet/expression.h>
+#include <stencet/viewModel.h>
 
-namespace templace {
+namespace stencet {
   std::ostream& operator <<(std::ostream& stream, Expr* e){
     e->write(stream);
     return stream;
@@ -22,10 +22,36 @@ namespace templace {
       stream << '.' << parts[i];    
   }
 
-  Expr* Parse(const std::string& exp){
-    auto expr = new Variable();
+  ViewModel* FilterExpr::Eval(ViewContext& ctx) {
+    if(!filter)
+      filter = FilterFactory::Create(filterName, args);
+    ViewModel* vm = target->Eval(ctx);
+    assert(vm);
+    assert(filter);
+    return filter->Eval(*vm);
+  }
+
+  void FilterExpr::write(std::ostream& stream){
+    target->write(stream);
+    stream << " | " << filterName << " " << args;
+  }
+
+  static FilterExpr* parseFilter(Expr* target, const char*& b){
+    auto filter = new FilterExpr();
+    filter->target = target;
+
+    while(*b == ' ') b++;
+    while(isalpha(*b)) filter->filterName += *(b++);
+    if(*b == ' ') {
+      while(*b == ' ') b++;
+      while(*b != '|' && *b != 0) filter->args += *b++;
+    }
     
-    const char* b = &exp[0];
+    return filter; 
+  }
+
+  static Variable* parseVariable(const char*& b) {
+    auto expr = new Variable();   
     while(*b == ' ') b++;
     while(*b && *b != ' '){
       std::string& part = 
@@ -36,10 +62,23 @@ namespace templace {
 	part += *b;
 	b++;
       }
-      b++;
+      if(*b == '.')
+	b++;
     }
+    while(*b == ' ') b++;
+
     return expr;
   }
 
+  Expr* Parse(const std::string& exp){
+    const char* b = &exp[0];
 
+    Expr* expr = parseVariable(b);
+    if(*b == '|')
+      expr = parseFilter(expr, ++b);
+    
+    if(*b)
+      std::cerr << "Warning: '" << b << "' left unparsed." << std::endl;
+    return expr;
+  }
 }

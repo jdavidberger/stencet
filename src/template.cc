@@ -1,11 +1,11 @@
-#include <templace/template.h>
+#include <stencet/template.h>
 #include <dlfcn.h>
 #include <cstring>
 #include <iostream>
 #include <fstream>
-#include <templace/tag.h>
+#include <stencet/tag.h>
 
-namespace templace {
+namespace stencet {
   void Template::render(std::ostream& out, ViewModel& vm) const {
     ViewContext vc;
     vc.scopes.push_back(&vm);
@@ -142,7 +142,13 @@ namespace templace {
 	    break;
 
 	  if(!endTag){
-	    Tag* tag = TagFactory::Create(stream, contents);
+	    const char* n = &contents[0];
+	    while(*n == ' ') n++;
+	    const char* ne = n;
+	    while(*n != ' ' && *n) ne++;
+
+	    std::string name(n, ne);
+	    Tag* tag = TagFactory::Create(name, stream, contents);
 	    if(tag)
 	      regions.push_back(tag);
 	    else {

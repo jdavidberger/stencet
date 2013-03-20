@@ -1,7 +1,7 @@
 #pragma once
-#include <templace/templace>
+#include <stencet/stencet>
 
-namespace templace {
+namespace stencet {
   struct IncludeTag : public BodyTag {
     std::string includeFileName;
     Template* includeThis = 0;

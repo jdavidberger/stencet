@@ -1,13 +1,13 @@
 #pragma once
 #include <iostream>
-#include <templace/viewModel.h>
-#include <templace/mscanf.h>
+#include <stencet/viewModel.h>
+#include <stencet/mscanf.h>
 #include <vector>
 #include <functional>
 #include <string>
 #include "expression.h"
 
-namespace templace {   
+namespace stencet {   
   struct Region {
     virtual void render(std::ostream& out, ViewContext& vm) const = 0;
   };

@@ -1,6 +1,6 @@
 #include <assert.h>
 
-namespace templace {
+namespace stencet {
   
   template <size_t N, typename T, typename... Types>
     struct GetType {
@@ -14,8 +14,7 @@ namespace templace {
 
   template <typename S, size_t N, typename... Types>
     struct GetIndex {    
-  };
-
+    };
   
   template <typename S, size_t N, typename T, typename... Types>
     struct GetIndex<S, N, T, Types...> {
@@ -79,10 +78,10 @@ namespace templace {
 	  return Get<GetIndex<T, 0, Types...>::value > ();
 	}
 
-	template <typename T>
-	T& as() {
-	  return Get<GetIndex<T, 0, Types...>::value > ();
-	}
+      template <typename T>
+      T& as() {
+	return Get<GetIndex<T, 0, Types...>::value > ();
+      }
       
     };
 }

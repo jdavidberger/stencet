@@ -1,7 +1,7 @@
 #pragma once
-#include <templace/templace>
+#include <stencet/stencet>
 
-namespace templace {
+namespace stencet {
   struct IfTag : public BodyTag {
     std::vector<std::pair< std::string, Template > > bodies;
 
