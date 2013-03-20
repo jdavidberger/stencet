@@ -1,0 +1,11 @@
+Test...
+{{test}}
+{{testb}}
+Args: 
+{% for arg in list %}
+{% if testb %}
+--{{ arg }}
+{% else %}
+++{{ arg }}
+{% endif %}
+{% endfor %}
