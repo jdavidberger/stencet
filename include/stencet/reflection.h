@@ -86,4 +86,20 @@ namespace stencet {
   template <typename T, typename... Args> 
     static auto make_fields(Field_<T, Args>... args) 
     RETURN( (tupleExt::MappedTuple_<std::string, pullName, Field_<T, Args>...>(args...)))   
+    
+    template<typename type> 
+    struct DefineT {
+    using T = type;
+  };
+
+#define METACLASS(type)				\
+  template <> struct MetaClass_< type > : DefineT<type> 
+
+#define FIELDS(fs...)					\
+    static auto fields()					\
+      STATIC_RETURN(make_fields(fs))
+    
+#define FIELD(name)				\
+    make_field( #name, &T::name)
+
 }

@@ -1,4 +1,5 @@
 #include <stencet/filter.h>
+#include <stencet/variant.h>
 #include <string.h>
 
 namespace stencet {

@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include "reflection.h"
+#include "parser.h"
 
 namespace stencet {
 
@@ -16,15 +17,14 @@ namespace stencet {
       auto render(std::ostream& out, const T& t)  const 
       -> decltype(MetaClass_<T>::fields(), void());
 
-    std::string Parse(std::istream& stream);
-
-
+    ParseStatus::t Parse(std::istream& stream);
+    ParseStatus::t Parse(std::istream& stream, std::string&);
     static void AddDirectory(const std::string&);
     static std::map<std::string, Template>& Templates();
     static Template& ByName(const std::string& name);
   };
 
-  void split(const std::string&, std::vector<std::string>&);
+  //  void split(const std::string&, std::vector<std::string>&);
 }
 
 #include "template.tcc"

@@ -11,21 +11,12 @@ struct Person {
   int age; 
 };
 
-
-template<>
-struct MetaClass_<Person> {
-  static auto fields() 
-    STATIC_RETURN(make_fields(make_field("age", &Person::age),
-			      make_field("name", &Person::name),
-			      make_field("p", &Person::p)
-			      ));
+METACLASS(Person){
+  FIELDS(FIELD(age), FIELD(name), FIELD(p))
 };
 
-template<>
-struct MetaClass_<Pet> {
-  static auto fields() 
-    STATIC_RETURN(make_fields(make_field("name", &Pet::name)
-			      ));
+METACLASS(Pet){
+  FIELDS(FIELD(name))
 };
 
 

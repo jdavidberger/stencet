@@ -4,12 +4,6 @@
 #include "reflection.h"
 
 namespace stencet {
-  template<typename T> 
-  Variant& Variant::operator=(const T& t){
-    VariantT::operator =(t);
-    return *this;   
-  } 
-
   template<typename T> struct ViewBase_ : public ViewModel {
     const T& t;
     ViewBase_(const T& _t) : t(_t) {}    

@@ -1,6 +1,9 @@
+// -*-c++-*-
 #pragma once
 #include "region.h"
 #include "tag.h"
 #include "template.h"
 #include "viewModel.h"
+#include "variant.h"
 
+#include "parser.h"

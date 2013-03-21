@@ -1,5 +1,6 @@
 #include <stencet/tags/ForTag.h>
 #include <string.h>
+#include <stencet/parser.h>
 namespace stencet {
   void ForTag::render(std::ostream& out, ViewContext& vm) const {
     ViewModel* loopOver = vm.at(listName);
@@ -25,7 +26,7 @@ namespace stencet {
 
   ForTag::ForTag(std::istream& stream, const std::string& content) {
     assert(3 == msscanf(content, "for ${val} in ${loop}", currentName, listName));
-    if("" != body.Parse(stream)) {
+    if(ParseStatus::UNKNOWN == body.Parse(stream)) {
       empty.Parse(stream);
     }
     

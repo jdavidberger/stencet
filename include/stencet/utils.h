@@ -1,6 +1,32 @@
 #include <assert.h>
 
 namespace stencet {
+
+  template <typename T>
+    struct use_ {
+      T* t = 0;  
+      bool manage = false;
+      use_(T* _t) {
+	t = _t;
+	if(!_t->managed) {
+	  manage = t->managed = true;
+	}
+      }
+      T* operator->(){	
+	return t;
+      }
+      ~use_(){
+	if(t && manage) {
+	  delete t;
+	  t = 0;
+	}
+      }
+    };
+  
+  template <typename T>
+    static use_<T> use(T* t) {
+    return use_<T>(t);
+  }
   
   template <size_t N, typename T, typename... Types>
     struct GetType {
