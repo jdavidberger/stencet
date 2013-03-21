@@ -31,14 +31,11 @@ namespace stencet {
   }
 
   void VariableRegion::render(std::ostream& out, ViewContext& vm) const {
-    ViewModel* m = expression->Eval(vm);
-    
+    auto m = use(expression->Eval(vm));
     if(m){
       std::string buffer; 
       m->asString(buffer);
       out << buffer;
-      if(!m->managed)
-	delete m;
     } else 
       std::cerr << "No variable '" << expression << "' defined." << std::endl;
   }

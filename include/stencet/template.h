@@ -10,6 +10,7 @@ namespace stencet {
 
   struct Template {
     std::vector<Region*> regions;
+
     void render(std::ostream& out, ViewContext& vc) const;
     void render(std::ostream& out, ViewModel& vm) const;
     
@@ -18,6 +19,7 @@ namespace stencet {
       -> decltype(MetaClass_<T>::fields(), void());
 
     ParseStatus::t Parse(std::istream& stream);
+    ParseStatus::t Parse(const std::string&);
     ParseStatus::t Parse(std::istream& stream, std::string&);
     static void AddDirectory(const std::string&);
     static std::map<std::string, Template>& Templates();

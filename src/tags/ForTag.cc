@@ -29,7 +29,6 @@ namespace stencet {
     if(ParseStatus::UNKNOWN == body.Parse(stream)) {
       empty.Parse(stream);
     }
-    
   }
 
 }

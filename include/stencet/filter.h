@@ -5,9 +5,11 @@
 #include <stencet/viewModel.h>
 
 namespace stencet {
+  struct Expr;
   struct Filter {
-    virtual ViewModel* Eval(const ViewModel& target) = 0;
+    using Arg = Expr*;
+    virtual const ViewModel* Eval(const ViewModel* target, ViewContext& ctx) = 0;
   };
 
-  typedef Factory<Filter, std::string> FilterFactory;
+  typedef Factory<Filter, Filter::Arg > FilterFactory;
 }

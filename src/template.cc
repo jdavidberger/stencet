@@ -69,7 +69,10 @@ namespace stencet {
     std::string exitCond;
     return Parse(stream, exitCond);
   }
-
+  ParseStatus::t Template::Parse(const std::string& temp){
+    std::stringstream ss(temp);
+    return Parse(ss);
+  }
   ParseStatus::t Template::Parse(std::istream& stream, std::string& unknown){
     auto status = stencet::Parse(stream, regions, unknown);
     return status;

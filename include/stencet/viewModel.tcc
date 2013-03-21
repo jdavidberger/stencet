@@ -51,4 +51,37 @@ namespace stencet {
     ViewModel_(const double& _t) : ViewBase_<double>(_t) {}
     virtual double asDouble() const { return t; };
   };
+
+#define VIEW_MODEL_OP( op)						\
+  inline bool operator op(const ViewModel& lhs, const ViewModel& rhs) { \
+    ViewModel::Type myType = lhs.getType();				\
+    if( !rhs.isConvertible(myType) )					\
+      return false;							\
+    switch(myType){							\
+    case ViewModel::Null: return ViewModel::Null op rhs.getType();	\
+    case ViewModel::Object: return false; /* Todo: Make this work?*/	\
+    case ViewModel::List: return false; /* TODO: Make this work*/	\
+    case ViewModel::String: {						\
+      std::string a, b;							\
+      lhs.asString(a); rhs.asString(b);					\
+      return a op b;							\
+    }									\
+    case ViewModel::Double:						\
+      return lhs.asDouble() op rhs.asDouble();				\
+    case ViewModel::Int:						\
+      return lhs.asInt()    op rhs.asInt();				\
+    case ViewModel::Bool:   return lhs.asBool()   op rhs.asBool();	\
+    default:								\
+      assert(false);							\
+      return false;							\
+    }									\
+  }			
+
+  VIEW_MODEL_OP(==)
+  VIEW_MODEL_OP(<)
+
+  inline bool operator!=(const ViewModel& lhs, const ViewModel& rhs){return !operator==(lhs,rhs);} 
+  inline bool operator> (const ViewModel& lhs, const ViewModel& rhs){return  operator< (rhs,lhs);} 
+  inline bool operator<=(const ViewModel& lhs, const ViewModel& rhs){return !operator> (lhs,rhs);} 
+  inline bool operator>=(const ViewModel& lhs, const ViewModel& rhs){return !operator< (lhs,rhs);}
 }

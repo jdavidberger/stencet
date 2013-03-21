@@ -8,6 +8,6 @@ namespace stencet {
   }
 
   IncludeTag::IncludeTag(std::istream& stream, const std::string& content) {
-    assert(2 == msscanf(content, "include '${}'", includeFileName));
+    assert(2 == msscanf(content, "include \"${}\"", includeFileName));
   }
 }

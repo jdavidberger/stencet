@@ -4,6 +4,7 @@ add_library(stencet
 		     viewContext.cc 
 		     parser.cc
 		     variant.cc
+		     expression.cc
 
 		     tags/ForTag.cc 
 		     tags/tag.cc 
@@ -13,7 +14,7 @@ add_library(stencet
 		     tags/BlockTag.cc 
 		     	      
 		     filters/capfirst.cc
-		     expression.cc
+		     filters/default.cc
 	)
 
 target_link_libraries(stencet dl)

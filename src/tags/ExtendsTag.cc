@@ -11,14 +11,19 @@ namespace stencet {
     extendThis->render(out, vm);
   }
 
-
   ExtendsTag::ExtendsTag(std::istream& stream, const std::string& content) {
     int m = msscanf(content, "extends \"${extendThis}\"", extendThisName);
     assert(m == 2);
     while(stream.good()){
       std::string blockname;      
       int m = msscanf(stream, "{% block ${blockname} %}", blockname);
-      assert(m == 1);
+      if(m != 1){
+	char tidbit[18];
+	stream.getline(tidbit, 18);
+	std::cerr << "'" << tidbit << "' does not specify a valid block." << std::endl;
+	std::cerr << "If you are extending a template, all content must be in blocks." << std::endl;
+      }
+
       sections[blockname].Parse(stream);
     }
   }

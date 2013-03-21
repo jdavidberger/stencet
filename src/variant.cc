@@ -1,11 +1,11 @@
 #include <stencet/variant.h>
 
 namespace stencet {
-  Variant::Variant(bool _managed)  {
+  /*Variant::Variant(bool _managed)  {
     this->managed = _managed;
-  }
-  Variant::Variant() : Variant(true) {
-
+    }*/
+  Variant::Variant()  {
+    this->managed = true;
   }
 
 
@@ -87,10 +87,21 @@ namespace stencet {
     switch(type){
     case 0: return this->as<MapT>().size();
     case 1: return this->as<ListT>().size();
+    case 2: return this->as<std::string>().size();
     default:
-      assert(false);
       return 0;
     }
   }
-   
+  ViewModel::Type Variant::getType() const {
+    return (ViewModel::Type)this->type;
+  }
+  void* Variant::operator new(size_t size){
+    Variant* storage = (Variant*)malloc(size);
+    *(storage) = Variant();
+    storage->managed = false;
+    return storage;
+  }
+  void Variant::operator delete(void* ptr){
+    free(ptr);
+  }
 } 

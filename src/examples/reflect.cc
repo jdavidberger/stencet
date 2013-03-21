@@ -11,6 +11,7 @@ struct Person {
   int age; 
 };
 
+
 METACLASS(Person){
   FIELDS(FIELD(age), FIELD(name), FIELD(p))
 };

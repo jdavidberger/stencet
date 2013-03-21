@@ -16,8 +16,7 @@ namespace stencet {
   }
 
   void VariableRegion::render(std::ostream& out, ViewContext& vm) const {
-    auto m = expression->Eval(vm);
-    
+    auto m = use(expression->Eval(vm));
     if(m){
       std::string buffer; 
       m->asString(buffer);
@@ -41,4 +40,6 @@ static auto ___Extends  = stencet::TagFactory::Register<stencet::ExtendsTag>("ex
 static auto ___Region  = stencet::TagFactory::Register<stencet::BlockTag>("block");
 
 #include <stencet/filters/capfirst.h>
+#include <stencet/filters/default.h>
 static auto ___capfirst  = stencet::FilterFactory::Register<stencet::CapFirstFilter>("capfirst");
+static auto ___default  = stencet::FilterFactory::Register<stencet::DefaultFilter>("default");
