@@ -20,6 +20,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_C_FLAGS} -std=c++11 -Wno-reorder
 
 include_directories(include)
 
+add_subdirectory(third)
+include_directories(third/mxcomp/include)	
+
 add_subdirectory(src)
 #add_subdirectory(Doxygen)
 

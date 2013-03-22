@@ -2,9 +2,9 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include "utils.h"
+#include <mxcomp/utils.h>
 #include <stdexcept>
-#include "reflection.h"
+#include <mxcomp/reflection.h>
 
 namespace stencet {
   struct UnsupportedCast : public std::runtime_error {

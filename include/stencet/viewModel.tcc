@@ -1,7 +1,7 @@
 // -*-c++-*-
 #include <sstream>
 #include <assert.h>
-#include "reflection.h"
+#include <mxcomp/reflection.h>
 
 namespace stencet {
   template<typename T> struct ViewBase_ : public ViewModel {

@@ -3,7 +3,7 @@
 #include <stencet/region.h>
 #include <vector>
 #include <iostream>
-#include "reflection.h"
+#include <mxcomp/reflection.h>
 #include "parser.h"
 
 namespace stencet {
