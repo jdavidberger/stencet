@@ -15,8 +15,7 @@ namespace stencet {
     if(buffer.size() > 0 && buffer[0] >= 'a' && buffer[0] <= 'z')
       buffer[0] += 'A' - 'a';
     
-    Variant* rtn = new Variant();
-    *rtn = buffer;
+    Variant* rtn = Variant::Create(buffer);
     return rtn;
   }
 

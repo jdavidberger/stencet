@@ -4,6 +4,8 @@
 #include <mxcomp/reflection.h>
 
 namespace stencet {
+  using namespace mxcomp;
+
   template<typename T> struct ViewBase_ : public ViewModel {
     const T& t;
     ViewBase_(const T& _t) : t(_t) {}    

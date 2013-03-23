@@ -12,6 +12,7 @@ namespace stencet {
   struct Expr {
     virtual const ViewModel* Eval(ViewContext& ctx) = 0;
     virtual void write(std::ostream& stream) = 0;
+    virtual ~Expr();
   };
   std::ostream& operator <<(std::ostream&, Expr*);
   
@@ -22,9 +23,10 @@ namespace stencet {
   };
   
   struct FilterExpr : public Expr {    
-    Expr* target;
-    Filter* filter = 0;
-        
+    Expr* target = 0;    
+    Filter* filter = 0; 
+    ~FilterExpr();
+    
     virtual const ViewModel* Eval(ViewContext& ctx);
     virtual void write(std::ostream& stream);
   };
@@ -44,6 +46,7 @@ namespace stencet {
     };
   }
   struct InfixOperatorExpr : public Expr {
+    ~InfixOperatorExpr();
     Expr *right = 0;
     Expr *left = 0;
     InfixOps::t op;

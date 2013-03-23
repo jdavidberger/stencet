@@ -18,6 +18,8 @@ namespace stencet {
       auto render(std::ostream& out, const T& t)  const 
       -> decltype(MetaClass_<T>::fields(), void());
 
+    ~Template();
+
     ParseStatus::t Parse(std::istream& stream);
     ParseStatus::t Parse(const std::string&);
     ParseStatus::t Parse(std::istream& stream, std::string&);
@@ -25,7 +27,8 @@ namespace stencet {
     static std::map<std::string, Template>& Templates();
     static Template& ByName(const std::string& name);
   };
-
+  
+  bool RegisterBuiltins();
   //  void split(const std::string&, std::vector<std::string>&);
 }
 

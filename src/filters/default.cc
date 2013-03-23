@@ -4,6 +4,9 @@
 #include <string.h>
 #include <stencet/expression.h>
 namespace stencet {
+  DefaultFilter::~DefaultFilter(){
+    delete _default;
+  }
 
   DefaultFilter::DefaultFilter(const Filter::Arg& arg){
     assert(arg);

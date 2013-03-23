@@ -8,8 +8,10 @@ namespace stencet {
     e->write(stream);
     return stream;
   }
-  
-static Expr* parseAtom(const char*& b);
+
+  Expr::~Expr(){}
+
+  static Expr* parseAtom(const char*& b);
   static Expr* ParseBuffer(const char*& b);
 
   const ViewModel* Variable::Eval(ViewContext& ctx) {
@@ -27,6 +29,11 @@ static Expr* parseAtom(const char*& b);
       stream << '.' << parts[i];    
   }
 
+  FilterExpr::~FilterExpr(){
+    delete target;
+    delete filter;
+  }
+
   const ViewModel* FilterExpr::Eval(ViewContext& ctx) {
     const ViewModel* vm = target->Eval(ctx);
     assert(filter);
@@ -35,7 +42,8 @@ static Expr* parseAtom(const char*& b);
 
   void FilterExpr::write(std::ostream& stream){
     target->write(stream);
-    //    stream << " | " << filterName << " " << args;
+    assert(filter);
+    stream << " | " << (*filter);
   }
 
   static Expr* tryParseFilter(Expr* target, const char*& b){
@@ -60,7 +68,7 @@ static Expr* parseAtom(const char*& b);
     while(*b == ' ') b++;
 
     filter->filter = FilterFactory::Create(filterName, arg);
-
+    assert(filter->filter);
     return filter; 
   }
 
@@ -90,10 +98,10 @@ static Expr* parseAtom(const char*& b);
     assert(right);
     assert(left);
     switch(op) {
-    case InfixOps::EQ:  return new Variant( use(left->Eval(ctx)) == use(right->Eval(ctx)) ) ;
-    case InfixOps::NEQ: return new Variant( use(left->Eval(ctx)) != use(right->Eval(ctx)) ) ;
-    case InfixOps::LEQ: return new Variant( use(left->Eval(ctx)) <= use(right->Eval(ctx)) ) ;
-    case InfixOps::GEQ: return new Variant( use(left->Eval(ctx)) >= use(right->Eval(ctx)) ) ;
+    case InfixOps::EQ:  return Variant::Create( use(left->Eval(ctx)) == use(right->Eval(ctx)) ) ;
+    case InfixOps::NEQ: return Variant::Create( use(left->Eval(ctx)) != use(right->Eval(ctx)) ) ;
+    case InfixOps::LEQ: return Variant::Create( use(left->Eval(ctx)) <= use(right->Eval(ctx)) ) ;
+    case InfixOps::GEQ: return Variant::Create( use(left->Eval(ctx)) >= use(right->Eval(ctx)) ) ;
     default: assert(false);
     }
   }
@@ -109,6 +117,10 @@ static Expr* parseAtom(const char*& b);
     left->write(stream);
   }
 
+  InfixOperatorExpr::~InfixOperatorExpr(){
+    delete right;
+    delete left;
+  }
 
   const ViewModel* LiteralExpr::Eval(ViewContext& ctx){
     return &value;
@@ -134,7 +146,7 @@ static Expr* parseAtom(const char*& b);
   }
 
   static Variable* parseVariable(const char*& b) {
-    auto expr = new Variable();   
+   auto expr = new Variable();   
     while(*b == ' ') b++;
     while(*b && *b != ' '){
       std::string& part = 
@@ -175,11 +187,11 @@ static Expr* parseAtom(const char*& b);
 
     if(isString){
       b++; // eat quote;
-      expr->value = Variant(content);
+      expr->value = content;
     } else if(isFloat) {
-      expr->value = Variant(atof(content.c_str()));
+      expr->value = atof(content.c_str());
     } else {
-      expr->value = Variant(atoi(content.c_str()));
+      expr->value = atoi(content.c_str());
     } // TODO: Add... boolean? And maybe object, but probably just boolean.
     while(isspace(*b)) b++;
     return expr;

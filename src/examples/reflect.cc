@@ -11,15 +11,15 @@ struct Person {
   int age; 
 };
 
+namespace mxcomp {
+  METACLASS(Person){
+    FIELDS(FIELD(age), FIELD(name), FIELD(p))
+      };
 
-METACLASS(Person){
-  FIELDS(FIELD(age), FIELD(name), FIELD(p))
-};
-
-METACLASS(Pet){
-  FIELDS(FIELD(name))
-};
-
+  METACLASS(Pet){
+    FIELDS(FIELD(name))
+      };
+}
 
 int main() {
   Template::AddDirectory("/home/justin/stencet/tcs");

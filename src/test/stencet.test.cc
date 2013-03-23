@@ -25,7 +25,7 @@ int main( int ac, char **av )
                                                        std::cerr ) );
   // Run the tests.
   bool wasSucessful = runner.run();
-
+  stencet::Template::Templates().clear();
   // Return error code 1 if the one of test failed.
   return wasSucessful ? 0 : 1;
 }

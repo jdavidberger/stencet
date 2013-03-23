@@ -62,17 +62,20 @@ namespace stencet {
     //    assert(type != Literal);
     //    type = Object;
     //    return &internal_map[name];
-    return &this->as<MapT>()[name];
+    auto& ptr = this->as<MapT>()[name];
+    if(ptr.get() == 0)
+      ptr.reset(new Variant);
+    return ptr.get();
   }
 
   Variant* Variant::at(size_t idx) {
     ListT& list = this->as<ListT>();
     if( (int)idx == -1 ) {      
       idx = list.size();
-      list.push_back( Variant() );     
+      list.push_back( std::unique_ptr<Variant>( new Variant() ) );     
     }
     assert(idx < size());
-    return &list[idx];
+    return list[idx].get();
   }
   /*
   Variant& Variant::operator=(const Variant& v){
@@ -95,13 +98,5 @@ namespace stencet {
   ViewModel::Type Variant::getType() const {
     return (ViewModel::Type)this->type;
   }
-  void* Variant::operator new(size_t size){
-    Variant* storage = (Variant*)malloc(size);
-    *(storage) = Variant();
-    storage->managed = false;
-    return storage;
-  }
-  void Variant::operator delete(void* ptr){
-    free(ptr);
-  }
+
 } 

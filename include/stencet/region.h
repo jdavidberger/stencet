@@ -10,10 +10,13 @@
 namespace stencet {   
   struct Region {
     virtual void render(std::ostream& out, ViewContext& vm) const = 0;
+    virtual ~Region();
   };
 
   struct VariableRegion : public Region {
-    Expr* expression; 
+    Expr* expression = 0;
+    ~VariableRegion();
+
     VariableRegion(const std::string& name);
     virtual void render(std::ostream& out, ViewContext& vm) const;
   };

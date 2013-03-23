@@ -5,6 +5,7 @@ add_library(stencet
 		     parser.cc
 		     variant.cc
 		     expression.cc
+		     region.cc
 
 		     tags/ForTag.cc 
 		     tags/tag.cc 
@@ -13,6 +14,7 @@ add_library(stencet
 		     tags/ExtendsTag.cc 
 		     tags/BlockTag.cc 
 		     	      
+		     filters/filter.cc
 		     filters/capfirst.cc
 		     filters/default.cc
 	)

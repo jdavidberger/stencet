@@ -17,6 +17,12 @@ namespace stencet {
       region->render(out, vm);
   }
 
+  Template::~Template(){
+    for(auto r : regions)
+      delete r;
+
+    regions.clear();
+  }
 
   static void getAssemblyPath(std::string& path){
     Dl_info info;
@@ -78,3 +84,5 @@ namespace stencet {
     return status;
   }
 }
+
+static auto __register_builtins = stencet::RegisterBuiltins();

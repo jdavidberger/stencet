@@ -15,7 +15,12 @@ namespace stencet {
       }
     }
   }
-
+  IfTag::~IfTag(){
+    for(auto pair : bodies){
+      delete pair.first;
+      delete pair.second;
+    }
+  }
   IfTag::IfTag(std::istream& stream, const std::string& _content) {
     std::string content = _content;
     bool seenIf = false;

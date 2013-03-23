@@ -1,23 +1,24 @@
 #pragma once
 #include "viewModel.h"
+#include <memory>
 
 namespace stencet {  
-  struct Variant : 
-    public ViewModel, 
-    public Variant_< std::map<std::string, Variant>, std::vector<Variant>, std::string, double, int, bool> {
 
-    using MapT = std::map<std::string, Variant>;
-    using ListT = std::vector<Variant>;
-    using VariantT = Variant_<MapT, ListT, std::string, double, int, bool>;
+  struct Variant;
+  using MapT = std::map<std::string, std::unique_ptr<Variant> >;
+  using ListT = std::vector< std::unique_ptr<Variant> >;
+  using VariantT = Variant_<MapT, ListT, std::string, double, int, bool>;
+  
+  struct Variant : public ViewModel, public VariantT {
+  public:
     Variant();
-
     template <typename T>
-      explicit  Variant(const T& t) : Variant() {
-      *this = t;
+      static Variant* Create(const T& t)  {
+      auto rtn = new Variant();
+      *rtn = t;
+      rtn->managed = false;
+      return rtn;
     }
-
-    void* operator new(size_t size);
-    void operator delete(void*);
 
     virtual Variant* at(const std::string& name);
     virtual Variant* at(size_t);
