@@ -4,10 +4,10 @@ namespace stencet {
 
   ViewModel::~ViewModel() {};
   ViewModel* ViewModel::at(size_t) { assert(false); }
+
   size_t ViewModel::size() const { 
     return 0;
   }
-  ViewModel::Type ViewContext::getType() { return Object; }
 
   bool ViewModel::isConvertible(Type t) const{
     Type myType = getType();

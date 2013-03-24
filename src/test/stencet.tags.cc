@@ -24,6 +24,7 @@ struct StencetTagsTest : public CppUnit::TestCase {
   CPPUNIT_TEST(testInclude0);
   CPPUNIT_TEST(testExtends0);
   CPPUNIT_TEST(testExtends0);
+  CPPUNIT_TEST(testCycle0);
   CPPUNIT_TEST_SUITE_END();
 public:
   std::stringstream compare, ss;
@@ -45,10 +46,20 @@ public:
 			  Parse("{%extends \"super\"%}"));
     CPPUNIT_ASSERT_EQUAL( ParseStatus::END, Template::Templates()["extendsTest.1"].
 			  Parse("{%extends \"super\"%}{% block inherit %}inherit{%endblock%}"));
+    CPPUNIT_ASSERT_EQUAL( ParseStatus::END, Template::Templates()["cycleTest.0"].
+			  Parse("{% for j in range %}{% for i in range %}{% cycle j i 'literal' %} {%endfor%}{%endfor%}"));
 
     compare.str(""); ss.str("");
     v = Variant();
   }
+  void testCycle0() {
+    v["range"].append("value1");
+    v["range"].append("value2");
+    v["range"].append("value3");
+    Template::ByName("cycleTest.0").render(ss, v);
+    CPPUNIT_ASSERT_EQUAL( std::string("value1 value2 literal value2 value2 literal value3 value2 literal "), ss.str());        
+  }
+
   void testExtends0(){
     Template::ByName("extendsTest.0").render(ss, v);
     CPPUNIT_ASSERT_EQUAL( std::string("super noinherit done"), ss.str());    
@@ -80,7 +91,7 @@ public:
 
   void testFor0() {
     for(int i = 0;i < 1000;i++){
-      v["range"][-1] = i;
+      v["range"].append(i);
       compare << i;
     }
     Template::ByName("forTest.0").render(ss, v);

@@ -58,6 +58,7 @@ namespace stencet {
     virtual const ViewModel* Eval(ViewContext& ctx);
     virtual void write(std::ostream& stream);
   };
-
+  
+  Expr* parseAtom(const char*& b);
   Expr* Parse(const std::string& exp);
 }

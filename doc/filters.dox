@@ -1,0 +1,45 @@
+/** \page Filters Filters
+Filters are invoked with a pipe (|) after a variable, and can be strung together:
+
+~~~~~~~
+{{ var | default:"none" | capfirst }}
+~~~~~~~
+
+first calls the 'default' filter with an argument of "none" on whatever value is in 'var', and then calls 'capfirst' on the output of that.
+
+See \ref makefilters for how to write custom filters. 
+
+List of built-in filters:
+- \subpage capfirstFilter 
+- \subpage defaultFilter
+	  
+*/
+
+/** \page makefilters Write Custom Filters
+
+Custom filters are subclassed off of the 'Filter' class. They must provide a constructor in the form of:
+
+~~~~~~~
+MyFilter(const Expr*& expression);	 
+~~~~~~~
+
+Where 'expression' is the optionally passed in argument (It is optional -- can be null). See Expr for more information on how to suss out from that what you need to do to retrieve data fully from that -- since it can be a literal or a variable, it might require a view context to evaluate. 
+
+They must also provide an evaluation function of their own:
+
+~~~~~~
+virtual const ViewModel* Eval(const ViewModel* target, ViewContext& ctx);
+~~~~~~
+
+The target is the passed in value from the left, and it must return a value to be rendered or passed to the right. Variants can be a useful type to pass back, and you shouldn't care in particular what type is passed in -- although you can throw an exception if you need a certain type and the passed in type is non-convertible.
+
+Filters must also be registered via
+
+~~~~~~~
+stencet::FilterFactory::Register<stencet::CapFirstFilter>("capfirst");
+~~~~~~~
+
+sometime before template parsing. In the future, there will be functionality to read filters from shared libraries. 
+
+
+*/

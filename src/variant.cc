@@ -70,10 +70,6 @@ namespace stencet {
 
   Variant* Variant::at(size_t idx) {
     ListT& list = this->as<ListT>();
-    if( (int)idx == -1 ) {      
-      idx = list.size();
-      list.push_back( std::unique_ptr<Variant>( new Variant() ) );     
-    }
     assert(idx < size());
     return list[idx].get();
   }

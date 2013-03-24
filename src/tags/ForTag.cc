@@ -2,13 +2,32 @@
 #include <string.h>
 #include <stencet/parser.h>
 namespace stencet {
+
+  struct ForTagModel : public ViewModel {
+    size_t size, index;
+    ViewModel* loopOver, *current;
+    const ForTag* forTag;
+    std::string argName;
+
+    virtual bool hasValue(const std::string& name) {
+      return at(name) != 0;
+    }
+
+    virtual ViewModel* at(const std::string& name) {
+      if( name == forTag->currentName)
+	return current;
+      return 0;
+    }
+  };
+
+
   void ForTag::render(std::ostream& out, ViewContext& vm) const {
     ViewModel* loopOver = vm.at(listName);
     assert(loopOver);
 
     ForTagModel loop;
     loop.forTag = this;
-    vm.scopes.push_back(&loop);
+    vm.push_scope(&loop);
 
     loop.loopOver = loopOver;
     loop.size = loopOver->size();
@@ -20,7 +39,8 @@ namespace stencet {
     if(loopOver->size() == 0){
       empty.render(out, vm);
     }
-    vm.scopes.pop_back();    
+
+    vm.pop_scope();
   }
 
 

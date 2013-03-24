@@ -2,6 +2,7 @@
 #include <stencet/viewModel.h>
 #include <stencet/variant.h>
 #include <string.h>
+#include <mxcomp/use.h>
 
 namespace stencet {
   std::ostream& operator <<(std::ostream& stream, Expr* e){
@@ -11,7 +12,7 @@ namespace stencet {
 
   Expr::~Expr(){}
 
-  static Expr* parseAtom(const char*& b);
+  Expr* parseAtom(const char*& b);
   static Expr* ParseBuffer(const char*& b);
 
   const ViewModel* Variable::Eval(ViewContext& ctx) {
@@ -197,7 +198,7 @@ namespace stencet {
     return expr;
   }
 
-  static Expr* parseAtom(const char*& b){
+  inline Expr* parseAtom(const char*& b){
     while( isspace(*b) ) b++;
     if(*b == '"' || *b == '\'' || isdigit(*b))
       return parseLiteral(b);

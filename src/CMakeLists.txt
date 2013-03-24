@@ -13,7 +13,8 @@ add_library(stencet
 		     tags/IncludeTag.cc 
 		     tags/ExtendsTag.cc 
 		     tags/BlockTag.cc 
-		     	      
+		     tags/CycleTag.cc
+
 		     filters/filter.cc
 		     filters/capfirst.cc
 		     filters/default.cc

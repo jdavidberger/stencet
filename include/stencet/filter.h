@@ -2,7 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <stencet/factory.h>
-#include <stencet/viewModel.h>
+#include <stencet/viewContext.h>
 
 namespace stencet {
   struct Expr;

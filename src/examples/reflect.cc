@@ -22,7 +22,7 @@ namespace mxcomp {
 }
 
 int main() {
-  Template::AddDirectory("/home/justin/stencet/tcs");
+  Template::AddDirectory("/home/justin/projects/stencet/tcs");
   
   Person person;
   person.name = "justin";

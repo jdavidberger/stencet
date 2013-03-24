@@ -3,6 +3,21 @@
 #include <string.h>
 
 namespace stencet {
+  /** \page defaultFilter Default 
+      Use a default value if the given expression isn't defined or is empty. 
+      
+      ~~~~~~~
+      {{ '' | default:'Hello world' }}
+      ~~~~~~~
+
+      would render as 'Hello World'; but
+
+      ~~~~~~~
+      {{ '42' | default:'Hello world' }}
+      ~~~~~~~
+
+      would render as '42'. 
+   */
   struct DefaultFilter : public Filter {
     Expr* _default = 0;
     ~DefaultFilter();

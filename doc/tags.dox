@@ -1,0 +1,43 @@
+/** \page Tags Tags
+
+Tags are functional units which are invocable from within templates by using the {% %} block syntax. 
+
+In general, you will need to read the documentation per tag to know how to use it correctly in a given situation. 
+
+If you are interested in implementing a tag of your own, see \ref maketags.
+
+List of built-in tags:
+- \subpage ForTag - Basic for loop -- {% for i in list %}
+- \subpage IncludeTag - Include another template -- {% include 'header' %}
+- \subpage IfTag - Display content based on a predicate -- {% if showTitle %} {{ title }} {% endif %}
+- \subpage ExtendsTag - Inheritance mechanism
+
+*/
+
+/** \page maketags Writing Custom Tags
+
+A tag is a subclass of the Region class. This gives you a requirement of implementing the Region::render function:
+
+~~~~~~~
+virtual void render(std::ostream& out, ViewContext& vm) const;    
+~~~~~~~
+
+You are given a string and the current context, and it is up to your tag to write whatever it needs to to that stream, with reference to the view context. 
+
+Additionally, you must define how to read your tag. Very rarely are tags simple one word construts, so you are given _all_ of the text between {% %} as 'content', and the stream that it was read from.
+
+The stream given has its internal reference set to right after the declared tag. The idea is that if the tag is something like the for tag, which has an inner body, you need to parse that out yourself (many functions exist that make this easy generally). 
+
+A good example to look at is the ForTag. It uses the template parsing functions to parse out its content names, and then also the inner body contents and the optional empty body. 
+
+The ForTag render functionality is equally as good of an example on how to render. It pushes new variables (the index number, the current item, etc) into scope, iterates over what it needs to, and then pops those off of scope. Since it reuses the template function for it's body, it handles nested for loops correctly. 
+
+The last thing you need to do is register your tag with the list of known tags so that it can be invoked on parse. You can use:
+
+~~~~~~~
+stencet::TagFactory::Register<stencet::ForTag>("for"); 
+~~~~~~~
+
+anywhere from before parsing a template to do this. Note that a registration function is provided in src/tag.cc that you can add on to. At some point in the future, functionality to load tags from a shared library is going to be added so you do not have to recompile for each tag change. 
+
+*/

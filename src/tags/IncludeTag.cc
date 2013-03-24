@@ -8,6 +8,9 @@ namespace stencet {
   }
 
   IncludeTag::IncludeTag(std::istream& stream, const std::string& content) {
-    assert(2 == msscanf(content, "include \"${}\"", includeFileName));
+    if(2 != msscanf(content, "include \"${}\"", includeFileName) && 
+       2 != msscanf(content, "include '${}'", includeFileName)){
+      throw BadlyFormedTagError(content + " should be in the form of " + "include \"${}\"");
+    }
   }
 }

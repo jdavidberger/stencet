@@ -1,3 +1,4 @@
+#include <mxcomp/use.h>
 #include <stencet/stencet>
 #include <string.h>
 namespace stencet {

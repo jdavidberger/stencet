@@ -1,0 +1,73 @@
+/**\mainpage QuickStart
+
+Template pages look like this: 
+
+**test.tc**: 
+~~~~~~~
+<html> 
+  {% include 'header' %}
+  <body>
+    <ul>
+	{% for item in menu %}
+	   <li> {{ item | capfirst }} </li>
+	{% endfor %}
+    </ul>
+  </body>
+</html>
+~~~~~~~
+
+**header.tc**:
+~~~~~~~
+<head><title>Menu</title><head>
+~~~~~~~
+
+Code inside of {% %} are tags which specify different commands, code inside of {{ }} are variables which are printed to the page. 
+
+Notice that some tags require end tags (for), and others don't (include). 
+
+Code to run that example could look like this: 
+
+**test.cc**:
+~~~~~~~
+int main() {
+  Variant vm;
+  vm["menu"].append("about");
+  vm["menu"].append("blog");
+  vm["menu"].append("licensing");
+  Template::ByName("include_test").render(std::cerr, vm);
+}
+~~~~~~~
+
+
+Which outputs to std::cerr: 
+
+~~~~~~~
+<html> 
+  <head><title>Menu</title><head>
+  <body>
+    <ul>
+	   <li> About </li>
+	   <li> Blog </li>
+	   <li> Licensing </li>
+    </ul>
+  </body>
+</html>
+~~~~~~~
+
+
+\section next Where to go from here
+
+The templating engine doesn't care about the underlying engine -- it could spit out CSS, HTML, XML, whatever. 
+
+The first argument of render just takes in a stream; so writing to files or general streams is pretty straightforward. 
+
+The variant type operates a lot like JSON objects. You can treat it like a map, a list, a string, a double, an int or a boolean so long as you are consistent (Don't try setting  something to true after you've set a string value, for instance). 
+
+Variants are good for quick throw-together demos, but a lot of times you will probably want to use your own classes. You can either implement ViewModel, or add reflection to your class. After either of which, you can just pass it into the render function directly. 
+
+- List of \ref Tags
+- List of \ref Filters
+- Variant
+- Template
+
+*/

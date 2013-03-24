@@ -3,8 +3,8 @@
 #include <map>
 #include <vector>
 #include <mxcomp/utils.h>
-#include <stdexcept>
 #include <mxcomp/reflection.h>
+#include <stdexcept>
 
 namespace stencet {
   struct UnsupportedCast : public std::runtime_error {
@@ -47,18 +47,6 @@ namespace stencet {
   inline bool operator>=(const ViewModel& lhs, const ViewModel& rhs);
 
   std::ostream& operator<<(std::ostream& stream, const ViewModel& variant);
-
-  struct Template;
-  struct ViewContext : public ViewModel {
-    std::vector<ViewModel*> scopes;
-    std::map<std::string, const Template*> blocks;
-
-    virtual Type getType();
-    virtual size_t size() const;
-    virtual bool hasValue(const std::string& name);
-    virtual ViewModel* at(size_t);    
-    virtual ViewModel* at(const std::string& name);
-  };
 
   template <typename T> struct ViewModel_;  
 }

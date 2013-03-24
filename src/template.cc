@@ -4,11 +4,12 @@
 #include <iostream>
 #include <fstream>
 #include <stencet/tag.h>
+#include <stencet/viewContext.h>
 
 namespace stencet {
   void Template::render(std::ostream& out, ViewModel& vm) const {
     ViewContext vc;
-    vc.scopes.push_back(&vm);
+    vc.push_scope(&vm);
     return render(out, vc);
   }
 

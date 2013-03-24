@@ -1,6 +1,7 @@
 #pragma once
 #include "viewModel.h"
 #include <memory>
+#include <mxcomp/variant.h>
 
 namespace stencet {  
 
@@ -24,6 +25,9 @@ namespace stencet {
     virtual Variant* at(size_t);
     Variant& operator[](const std::string& name);    
     Variant& operator[](size_t);
+
+    template<typename T> Variant& append(const T&);
+
     virtual bool hasValue(const std::string& name);
     
     virtual Type getType() const;
@@ -52,4 +56,10 @@ namespace stencet {
     return *this;   
   } 
 
+  template<typename T> Variant& Variant::append(const T& t){
+    ListT& list = this->as<ListT>();
+    list.push_back( std::unique_ptr<Variant>( new Variant() ) );     
+    *list.back() = t;
+    return *list.back().get();
+  }
 }

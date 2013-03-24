@@ -20,10 +20,18 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_C_FLAGS} -std=c++11 -Wno-reorder
 
 include_directories(include)
 
+add_subdirectory(Doxygen)
 add_subdirectory(third)
 include_directories(third/mxcomp/include)	
 
 add_subdirectory(src)
 #add_subdirectory(Doxygen)
+
+
+add_custom_target(release
+	COMMAND hg archive -t tgz ${CMAKE_BINARY_DIR}/stencet-${stencet_version}-src.tar.gz
+	COMMENT "Generating release tar" VERBATIM
+)
+
 
 install(DIRECTORY include/stencet DESTINATION include)
