@@ -28,6 +28,8 @@ struct StencetTagsTest : public CppUnit::TestCase {
   CPPUNIT_TEST(testNow0);
   CPPUNIT_TEST(testSpaceless0);
   CPPUNIT_TEST(testComment0);
+  CPPUNIT_TEST(testVerbatim0);
+  CPPUNIT_TEST(testVerbatim1);
   CPPUNIT_TEST_SUITE_END();
 public:
   std::stringstream compare, ss;
@@ -57,10 +59,25 @@ public:
 			  Parse("{% spaceless %}     <p>     <p>   test    this </p> </p>{% endspaceless %}"));
     CPPUNIT_ASSERT_EQUAL( ParseStatus::END, Template::Templates()["commentTest.0"].
 			  Parse("te{% comment %}this shouldnt appear {%endcomment% neither should this. {% endcomment %}st"));
+    CPPUNIT_ASSERT_EQUAL( ParseStatus::END, Template::Templates()["verbatimTest.0"].
+			  Parse("{%verbatim a %}' {{ test }} {%endverbatim b%} ' {%endverbatim{%endverbatim a    %}"));
+    CPPUNIT_ASSERT_EQUAL( ParseStatus::END, Template::Templates()["verbatimTest.1"].
+			  Parse("{%verbatim a %}' {{ test }} {%endverbatim b%} ' {%endverbatim   {%endverbatim a    %}"));
 
     compare.str(""); ss.str("");
     v = Variant();
   }
+  void testVerbatim0(){
+    Template::ByName("verbatimTest.0").render(ss, v);
+    CPPUNIT_ASSERT_EQUAL( std::string("' {{ test }} {%endverbatim b%} ' {%endverbatim"), ss.str());            
+  }
+
+  void testVerbatim1(){
+    Template::ByName("verbatimTest.1").render(ss, v);
+    CPPUNIT_ASSERT_EQUAL( std::string("' {{ test }} {%endverbatim b%} ' {%endverbatim   "), ss.str());            
+  }
+
+
   void testComment0(){
     Template::ByName("commentTest.0").render(ss, v);
     CPPUNIT_ASSERT_EQUAL( std::string("test"), ss.str());            

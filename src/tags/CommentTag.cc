@@ -12,17 +12,23 @@ namespace stencet {
     char c;
     char buffer[sizeof("endcomment")];
 
-    while(!done){
+    Token token;
+    do {
+      token = nextToken(stream, c);
+      
       if( OpenTag == nextToken(stream, c) ){
 	while(stream.peek() == ' ') stream.get();	
 	stream.get(buffer, sizeof(buffer) );
 	while(stream.peek() == ' ') stream.get();
-	
-	auto token = nextToken(stream, c);
-	done = (strncmp(buffer, "endcomment", sizeof(buffer)) == 0 &&
-		CloseTag == token ) || token == eof;
+
+	bool closeTag = 
+	  '%' == (char)stream.get() && 
+	  '}' == (char)stream.peek();
+	stream.unget();
+
+	done = strncmp(buffer, "endcomment", sizeof(buffer)) == 0 && closeTag;
       }
-    }
+    } while (!done && token != eof);
     
   }
 }
