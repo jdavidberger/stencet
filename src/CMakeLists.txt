@@ -15,6 +15,7 @@ add_library(stencet
 		     tags/BlockTag.cc 
 		     tags/CycleTag.cc
 		     tags/NowTag.cc
+		     tags/SpacelessTag.cc
 
 		     filters/filter.cc
 		     filters/capfirst.cc

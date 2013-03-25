@@ -26,6 +26,7 @@ struct StencetTagsTest : public CppUnit::TestCase {
   CPPUNIT_TEST(testExtends0);
   CPPUNIT_TEST(testCycle0);
   CPPUNIT_TEST(testNow0);
+  CPPUNIT_TEST(testSpaceless0);
   CPPUNIT_TEST_SUITE_END();
 public:
   std::stringstream compare, ss;
@@ -51,11 +52,16 @@ public:
 			  Parse("{% for j in range %}{% for i in range %}{% cycle j i 'literal' %} {%endfor%}{%endfor%}"));
     CPPUNIT_ASSERT_EQUAL( ParseStatus::END, Template::Templates()["nowTest.0"].
 			  Parse("{% now '%a %b %d %H:%M:%S %Y' %}"));
+    CPPUNIT_ASSERT_EQUAL( ParseStatus::END, Template::Templates()["spacelessTest.0"].
+			  Parse("{% spaceless %}     <p>     <p>   test    this </p> </p>{% endspaceless %}"));
 
     compare.str(""); ss.str("");
     v = Variant();
   }
-
+  void testSpaceless0() {
+    Template::ByName("spacelessTest.0").render(ss, v);
+    CPPUNIT_ASSERT_EQUAL( std::string("<p><p>   test    this </p></p>"), ss.str());            
+  }
   void testNow0() {
     Template::ByName("nowTest.0").render(ss, v);
     CPPUNIT_ASSERT("" != ss.str()); // Not sure the proper test case here...
