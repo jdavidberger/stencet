@@ -12,6 +12,36 @@ List of built-in tags:
 - \subpage IfTag - Display content based on a predicate -- {% if showTitle %} {{ title }} {% endif %}
 - \subpage ExtendsTag - Inheritance mechanism
 
+\section builtinprogress Django built-in tag progress
+
+Below is the list of current Django tags, with information on their implementation status. 
+
+- \subpage Autoescape - Implementation defered until post alpha. 
+- \subpage BlockTag
+- \subpage Comment
+- \subpage csrf_token
+- \subpage Cycle
+- \subpage Debug
+- \subpage ExtendsTag
+- \subpage Filter
+- \subpage FirstOf
+- \subpage ForTag
+- \subpage IfTag
+- \subpage IfChanged
+- \subpage IfEqual
+- \subpage IfNotEqual
+- \subpage IncludeTag
+- \subpage Load
+- \subpage NowTag
+- \subpage Regroup
+- \subpage SpacelessTag
+- \subpage Ssi
+- \subpage Template
+- \subpage Url
+- \subpage Verbatim
+- \subpage WidthRatio
+- \subpage With
+
 */
 
 /** \page maketags Writing Custom Tags

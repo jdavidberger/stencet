@@ -13,12 +13,14 @@ struct Person {
 
 namespace mxcomp {
   METACLASS(Person){
-    FIELDS(FIELD(age), FIELD(name), FIELD(p))
-      };
+    FIELDS(FIELD(age), 
+	   FIELD(name), 
+	   FIELD(p));
+  };
 
   METACLASS(Pet){
-    FIELDS(FIELD(name))
-      };
+    FIELDS(FIELD(name));
+  };
 }
 
 int main() {

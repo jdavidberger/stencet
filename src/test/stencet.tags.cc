@@ -27,6 +27,7 @@ struct StencetTagsTest : public CppUnit::TestCase {
   CPPUNIT_TEST(testCycle0);
   CPPUNIT_TEST(testNow0);
   CPPUNIT_TEST(testSpaceless0);
+  CPPUNIT_TEST(testComment0);
   CPPUNIT_TEST_SUITE_END();
 public:
   std::stringstream compare, ss;
@@ -54,9 +55,15 @@ public:
 			  Parse("{% now '%a %b %d %H:%M:%S %Y' %}"));
     CPPUNIT_ASSERT_EQUAL( ParseStatus::END, Template::Templates()["spacelessTest.0"].
 			  Parse("{% spaceless %}     <p>     <p>   test    this </p> </p>{% endspaceless %}"));
+    CPPUNIT_ASSERT_EQUAL( ParseStatus::END, Template::Templates()["commentTest.0"].
+			  Parse("te{% comment %}this shouldnt appear {%endcomment% neither should this. {% endcomment %}st"));
 
     compare.str(""); ss.str("");
     v = Variant();
+  }
+  void testComment0(){
+    Template::ByName("commentTest.0").render(ss, v);
+    CPPUNIT_ASSERT_EQUAL( std::string("test"), ss.str());            
   }
   void testSpaceless0() {
     Template::ByName("spacelessTest.0").render(ss, v);

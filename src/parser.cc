@@ -2,30 +2,21 @@
 #include <stencet/tag.h>
 namespace stencet {
 
-  enum Token {
-    Val,
-    OpenVar,  // {{
-    CloseVar, // }}
-    OpenTag,  // {%
-    CloseTag, // %}
-    eof = EOF
-  };
-
-  static inline Token nextToken(std::istream& stream, char* buffer){
+  inline Token nextToken(std::istream& stream, char& buffer){
     Token rtn = Val;
-    buffer[0] = stream.get();
-    if(buffer[0] == EOF)
+    buffer = stream.get();
+    if(buffer == EOF)
       return eof;
 
     char peek = stream.peek();
-    if(buffer[0] == '{'){
+    if(buffer == '{'){
       rtn = 
 	peek == '{' ? OpenVar :
 	peek == '%' ? OpenTag : Val;
     } else if (peek == '}'){
       rtn = 
-	buffer[0] == '}' ? CloseVar :
-	buffer[0] == '%' ? CloseTag : Val;
+	buffer == '}' ? CloseVar :
+	buffer == '%' ? CloseTag : Val;
     }
 
     if(rtn != Val)
@@ -38,7 +29,7 @@ namespace stencet {
     Token tkn; 
     char curr;
     text.clear();
-    while( (tkn = nextToken(stream, &curr)) != EOF ){
+    while( (tkn = nextToken(stream, curr)) != EOF ){
       if(tkn == CloseVar || tkn == CloseTag)
 	return;    
       if(curr != ' ' || text.size() > 0)
@@ -54,7 +45,7 @@ namespace stencet {
     LiteralRegion* lb = 0;
     Token tkn; 
     int depth = 0;
-    while( (tkn = nextToken(stream, &curr)) != EOF ){
+    while( (tkn = nextToken(stream, curr)) != EOF ){
       if(tkn == OpenVar || tkn == OpenTag) {
 	lb = 0;
 	std::string contents;
