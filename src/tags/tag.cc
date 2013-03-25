@@ -7,6 +7,7 @@
 #include <stencet/tags/ExtendsTag.h>
 #include <stencet/tags/BlockTag.h>
 #include <stencet/tags/CycleTag.h>
+#include <stencet/tags/NowTag.h>
 
 #include <stencet/filters/capfirst.h>
 #include <stencet/filters/default.h>
@@ -19,6 +20,7 @@ namespace stencet {
     stencet::TagFactory::Register<stencet::ExtendsTag>("extends");
     stencet::TagFactory::Register<stencet::BlockTag>("block");
     stencet::TagFactory::Register<stencet::CycleTag>("cycle");
+    stencet::TagFactory::Register<stencet::NowTag>("now");
     
     stencet::FilterFactory::Register<stencet::CapFirstFilter>("capfirst");
     stencet::FilterFactory::Register<stencet::DefaultFilter>("default");

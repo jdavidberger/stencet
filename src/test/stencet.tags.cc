@@ -25,6 +25,7 @@ struct StencetTagsTest : public CppUnit::TestCase {
   CPPUNIT_TEST(testExtends0);
   CPPUNIT_TEST(testExtends0);
   CPPUNIT_TEST(testCycle0);
+  CPPUNIT_TEST(testNow0);
   CPPUNIT_TEST_SUITE_END();
 public:
   std::stringstream compare, ss;
@@ -48,10 +49,18 @@ public:
 			  Parse("{%extends \"super\"%}{% block inherit %}inherit{%endblock%}"));
     CPPUNIT_ASSERT_EQUAL( ParseStatus::END, Template::Templates()["cycleTest.0"].
 			  Parse("{% for j in range %}{% for i in range %}{% cycle j i 'literal' %} {%endfor%}{%endfor%}"));
+    CPPUNIT_ASSERT_EQUAL( ParseStatus::END, Template::Templates()["nowTest.0"].
+			  Parse("{% now '%a %b %d %H:%M:%S %Y' %}"));
 
     compare.str(""); ss.str("");
     v = Variant();
   }
+
+  void testNow0() {
+    Template::ByName("nowTest.0").render(ss, v);
+    CPPUNIT_ASSERT("" != ss.str()); // Not sure the proper test case here...
+  }
+  
   void testCycle0() {
     v["range"].append("value1");
     v["range"].append("value2");
