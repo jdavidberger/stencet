@@ -27,5 +27,8 @@ add_library(stencet
 target_link_libraries(stencet dl)
 install(TARGETS stencet DESTINATION lib)
 
-add_subdirectory(examples)
-add_subdirectory(test)
+IF( ${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
+    message("Making stencet examples and tests")
+    add_subdirectory(examples)
+    add_subdirectory(test)
+ENDIF()

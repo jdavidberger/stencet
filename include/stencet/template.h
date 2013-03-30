@@ -16,10 +16,19 @@ namespace stencet {
 
     void render(std::ostream& out, ViewContext& vc) const;
     void render(std::ostream& out, ViewModel& vm) const;
-    
+       
     template <typename T> 
       auto render(std::ostream& out, const T& t)  const 
       -> decltype(MetaClass_<T>::fields(), void());
+
+    template <typename T> 
+    auto With(T& t)  const 
+    -> std::function< void (std::ostream&)> 
+    { 
+      return [&](std::ostream& out) { 
+	this->render(out, t); 
+      }; 
+    }
 
     ~Template();
 
@@ -29,7 +38,10 @@ namespace stencet {
     static void AddDirectory(const std::string&);
     static std::map<std::string, Template>& Templates();
     static Template& ByName(const std::string& name);
+    
   };
+
+  
   
   bool RegisterBuiltins();
   //  void split(const std::string&, std::vector<std::string>&);
