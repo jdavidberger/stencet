@@ -2,7 +2,6 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include <mxcomp/utils.h>
 #include <mxcomp/reflection.h>
 #include <stdexcept>
 

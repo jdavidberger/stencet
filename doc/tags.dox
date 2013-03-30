@@ -17,30 +17,30 @@ List of built-in tags:
 Below is the list of current Django tags, with information on their implementation status. 
 
 - \subpage Autoescape - Implementation defered until post alpha. 
-- \subpage BlockTag
-- \subpage Comment
-- \subpage csrf_token
-- \subpage Cycle
-- \subpage Debug
+- \subpage BlockTag 
+- \subpage CommentTag 
+- \subpage csrf_token - Implementation defered until post alpha. 
+- \subpage CycleTag
+- \subpage Debug - No plans to implement. Might implement if need arises. 
 - \subpage ExtendsTag
-- \subpage Filter
-- \subpage FirstOf
+- \subpage Filter - No plans to implement. 
+- \subpage FirstOf - Implementation defered until post alpha. 
 - \subpage ForTag
 - \subpage IfTag
-- \subpage IfChanged
-- \subpage IfEqual
-- \subpage IfNotEqual
-- \subpage IncludeTag
-- \subpage Load
-- \subpage NowTag
-- \subpage Regroup
+- \subpage IfChanged - Planned for alpha
+- \subpage IfEqual - No plans to implement. Just use If ==
+- \subpage IfNotEqual - No plans to implement. Just use If !=
+- \subpage IncludeTag 
+- \subpage Load - No plans to implement. The module system in place will not be callable from within templates. 
+- \subpage NowTag 
+- \subpage Regroup - No plans to implement. Blurs the presentation vs model layer line.
 - \subpage SpacelessTag
-- \subpage Ssi
-- \subpage Template
-- \subpage Url
-- \subpage Verbatim
-- \subpage WidthRatio
-- \subpage With
+- \subpage Ssi - No plans to implement. Semi-deprecated in Django.
+- \subpage TemplateTag - No plans to implement. Use verbatim or raw.
+- \subpage Url - Implementation defered until post alpha. Unsure of the exact form this will take. 
+- \subpage VerbatimTag 
+- \subpage WidthRatio - No plans to implement. You can more easily do this in code. 
+- \subpage With - Planned for alpha. 
 
 */
 

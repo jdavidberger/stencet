@@ -23,7 +23,7 @@ include_directories(include)
 add_subdirectory(Doxygen)
 add_subdirectory(third)
 include_directories(third/mxcomp/include)	
-
+include_directories(/usr/include/python2.7)
 add_subdirectory(src)
 #add_subdirectory(Doxygen)
 
