@@ -18,7 +18,7 @@ namespace stencet {
     void push_scope(ViewModel*);
     void pop_scope();
 
-    virtual Type getType();
+    virtual Type getType() const;
     virtual size_t size() const;
     virtual bool hasValue(const std::string& name);
     virtual ViewModel* at(size_t);    

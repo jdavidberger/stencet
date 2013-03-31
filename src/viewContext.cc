@@ -7,7 +7,7 @@
 #include <stencet/viewContext.h>
 
 namespace stencet {
-  ViewModel::Type ViewContext::getType() { return Object; }
+  ViewModel::Type ViewContext::getType() const { return Object; }
 
   void ViewContext::push_scope(ViewModel* vm) {
     scopes.push_back(vm);
