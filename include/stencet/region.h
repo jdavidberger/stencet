@@ -4,7 +4,7 @@
 #pragma once
 #include <iostream>
 #include <stencet/viewModel.h>
-#include <stencet/mscanf.h>
+#include <mxcomp/mscanf.h>
 #include <vector>
 #include <functional>
 #include <string>

@@ -24,7 +24,11 @@ add_library(stencet
 		     filters/default.cc
 	)
 
-target_link_libraries(stencet dl)
+
+IF(NOT ${WIN32})
+	target_link_libraries(stencet dl)
+ENDIF()
+
 install(TARGETS stencet DESTINATION lib)
 
 IF( ${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
